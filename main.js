@@ -13,8 +13,6 @@ canvas.height = BLOCK_SIZE * BOARD_HEIGTH
 
 context.scale(BLOCK_SIZE, BLOCK_SIZE)
 
-
-
 // 3. Tablero
 
 const board = [
@@ -86,11 +84,39 @@ function draw() {
 }
 
 document.addEventListener('keydown', event => {
-  if (event.key === 'ArrowLeft') piece.position.x--
-  if (event.key === 'ArrowRight') piece.position.x++
-  if (event.key === 'ArrowDown') piece.position.y++
+  if (event.key === 'ArrowLeft') {
+    piece.position.x--
+    if (checkCollision()) {
+      piece.position.x++
+    }
+  }
+  if (event.key === 'ArrowRight') {
+    piece.position.x++
+    if (checkCollision()) {
+      piece.position.x--
+    }
+  }
+  if (event.key === 'ArrowDown') {
+    piece.position.y++
+    if (checkCollision()) {
+      piece.position.y--
+    }
+  }
 })
 
 // 5.Colisiones
+
+function checkCollision() {
+  return piece.shape.find((row, y) => {
+    return row.find((value, x) => {
+      return (
+        value !== 0 &&
+        board[y + piece.position.y]?.[x + piece.position.x] !== 0
+      )
+    })
+  })
+}
+
+//6. Solidificar Piezas
 
 update()
