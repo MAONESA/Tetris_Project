@@ -14,3 +14,15 @@ canvas.height = BLOCK_SIZE * BOARD_HEIGTH
 context.scale(BLOCK_SIZE, BLOCK_SIZE)
 
 // 2. Game loop
+function update() {
+  draw()
+  window.requestAnimationFrame(update())
+}
+
+function draw() {
+  context.fillStyle = '#000'
+  context.fillRect(0, 0, canvas.width, canvas.height)
+}
+update()
+
+// 3. Tablero
